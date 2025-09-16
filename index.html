@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Aprende Unidades y Decenas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Pantalla de inicio -->
+        <div id="start-screen" class="screen active">
+            <div class="title-container">
+                <h1 class="game-title">🎮</h1>
+                <h2 class="game-subtitle">Aprende Unidades y Decenas</h2>
+                <p class="game-description">¡Ayuda a los animalitos a contar!</p>
+            </div>
+            <div class="character-container">
+                <div class="character">🐻</div>
+                <div class="character">🐰</div>
+                <div class="character">🐸</div>
+            </div>
+            <button id="start-btn" class="btn-primary">¡Empezar Juego!</button>
+        </div>
+
+        <!-- Pantalla de juego -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="score-container">
+                    <span class="score-label">Puntos:</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="level-container">
+                    <span class="level-label">Nivel:</span>
+                    <span id="level">1</span>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-text">
+                    <span id="question-number">15</span>
+                </div>
+                <div class="question-instruction">
+                    ¿Cuántas decenas y unidades tiene este número?
+                </div>
+            </div>
+
+            <div class="answer-container">
+                <div class="decenas-section">
+                    <h3>Decenas</h3>
+                    <div class="decenas-box" id="decenas-box">
+                        <div class="decenas-count" id="decenas-count">0</div>
+                    </div>
+                    <div class="decenas-controls">
+                        <button class="btn-control" id="decenas-minus">-</button>
+                        <button class="btn-control" id="decenas-plus">+</button>
+                    </div>
+                </div>
+
+                <div class="unidades-section">
+                    <h3>Unidades</h3>
+                    <div class="unidades-box" id="unidades-box">
+                        <div class="unidades-count" id="unidades-count">0</div>
+                    </div>
+                    <div class="unidades-controls">
+                        <button class="btn-control" id="unidades-minus">-</button>
+                        <button class="btn-control" id="unidades-plus">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-aid">
+                <div class="blocks-container">
+                    <div class="decenas-blocks" id="decenas-blocks"></div>
+                    <div class="unidades-blocks" id="unidades-blocks"></div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="check-btn" class="btn-check">✓ Verificar</button>
+                <button id="next-btn" class="btn-next" style="display: none;">Siguiente →</button>
+            </div>
+
+            <div class="feedback" id="feedback"></div>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="screen">
+            <div class="results-container">
+                <h2>¡Excelente trabajo! 🎉</h2>
+                <div class="final-score">
+                    <span class="score-label">Puntuación final:</span>
+                    <span id="final-score">0</span>
+                </div>
+                <div class="level-reached">
+                    <span class="level-label">Nivel alcanzado:</span>
+                    <span id="final-level">1</span>
+                </div>
+                <div class="celebration">
+                    <div class="character">🎊</div>
+                    <div class="character">🌟</div>
+                    <div class="character">🎈</div>
+                </div>
+                <button id="play-again-btn" class="btn-primary">Jugar de nuevo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
