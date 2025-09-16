@@ -7,13 +7,24 @@ let level = 1;
 let currentQuestion = 0;
 let questionsPerLevel = 5;
 let isAnswered = false;
+let playerName = '';
+let playerAvatar = '🐻';
 
 // Elementos del DOM
 const startScreen = document.getElementById('start-screen');
+const customizeScreen = document.getElementById('customize-screen');
 const gameScreen = document.getElementById('game-screen');
 const resultsScreen = document.getElementById('results-screen');
-const startBtn = document.getElementById('start-btn');
+const customizeBtn = document.getElementById('customize-btn');
+const backBtn = document.getElementById('back-btn');
+const startGameBtn = document.getElementById('start-game-btn');
 const playAgainBtn = document.getElementById('play-again-btn');
+
+// Elementos de personalización
+const playerNameInput = document.getElementById('player-name');
+const selectedAvatar = document.getElementById('selected-avatar');
+const selectedName = document.getElementById('selected-name');
+const avatarOptions = document.querySelectorAll('.avatar-option');
 
 const questionNumber = document.getElementById('question-number');
 const decenasCount = document.getElementById('decenas-count');
@@ -101,8 +112,16 @@ function initGame() {
 }
 
 function setupEventListeners() {
-    startBtn.addEventListener('click', startGame);
+    customizeBtn.addEventListener('click', showCustomizeScreen);
+    backBtn.addEventListener('click', showStartScreen);
+    startGameBtn.addEventListener('click', startGame);
     playAgainBtn.addEventListener('click', startGame);
+    
+    // Eventos de personalización
+    playerNameInput.addEventListener('input', updatePlayerName);
+    avatarOptions.forEach(option => {
+        option.addEventListener('click', () => selectAvatar(option));
+    });
     
     decenasMinus.addEventListener('click', () => changeDecenas(-1));
     decenasPlus.addEventListener('click', () => changeDecenas(1));
@@ -115,12 +134,16 @@ function setupEventListeners() {
 
 function showScreen(screenName) {
     startScreen.classList.remove('active');
+    customizeScreen.classList.remove('active');
     gameScreen.classList.remove('active');
     resultsScreen.classList.remove('active');
     
     switch(screenName) {
         case 'start':
             startScreen.classList.add('active');
+            break;
+        case 'customize':
+            customizeScreen.classList.add('active');
             break;
         case 'game':
             gameScreen.classList.add('active');
@@ -131,7 +154,78 @@ function showScreen(screenName) {
     }
 }
 
+function showCustomizeScreen() {
+    showScreen('customize');
+    // Cargar datos guardados si existen
+    loadPlayerData();
+}
+
+function showStartScreen() {
+    showScreen('start');
+}
+
+function updatePlayerName() {
+    playerName = playerNameInput.value.trim();
+    if (playerName) {
+        selectedName.textContent = `¡Hola ${playerName}!`;
+    } else {
+        selectedName.textContent = '¡Hola!';
+    }
+    soundManager.playClick();
+}
+
+function selectAvatar(option) {
+    // Remover selección anterior
+    avatarOptions.forEach(opt => opt.classList.remove('selected'));
+    
+    // Seleccionar nuevo avatar
+    option.classList.add('selected');
+    playerAvatar = option.dataset.avatar;
+    selectedAvatar.textContent = playerAvatar;
+    
+    soundManager.playClick();
+    addButtonEffect(option);
+}
+
+function loadPlayerData() {
+    // Cargar datos del localStorage si existen
+    const savedName = localStorage.getItem('playerName');
+    const savedAvatar = localStorage.getItem('playerAvatar');
+    
+    if (savedName) {
+        playerName = savedName;
+        playerNameInput.value = playerName;
+        selectedName.textContent = `¡Hola ${playerName}!`;
+    }
+    
+    if (savedAvatar) {
+        playerAvatar = savedAvatar;
+        selectedAvatar.textContent = playerAvatar;
+        
+        // Seleccionar el avatar en la interfaz
+        avatarOptions.forEach(option => {
+            if (option.dataset.avatar === savedAvatar) {
+                option.classList.add('selected');
+            }
+        });
+    }
+}
+
+function savePlayerData() {
+    localStorage.setItem('playerName', playerName);
+    localStorage.setItem('playerAvatar', playerAvatar);
+}
+
 function startGame() {
+    // Validar que se haya ingresado un nombre
+    if (!playerName.trim()) {
+        alert('¡Por favor escribe tu nombre primero!');
+        return;
+    }
+    
+    // Guardar datos del jugador
+    savePlayerData();
+    
     score = 0;
     level = 1;
     currentQuestion = 0;
@@ -144,6 +238,11 @@ function startGame() {
     
     // Efecto de partículas de inicio
     createParticles(50);
+    
+    // Mostrar mensaje de bienvenida personalizado
+    setTimeout(() => {
+        showFeedback(`¡Hola ${playerName}! ${playerAvatar} ¡Vamos a aprender juntos!`, 'correct');
+    }, 500);
 }
 
 function generateNewQuestion() {
@@ -248,12 +347,23 @@ function checkAnswer() {
     if (isCorrect) {
         score += 10;
         updateScore();
-        showFeedback('¡Correcto! 🎉', 'correct');
+        
+        // Felicitaciones personalizadas
+        const congratulations = [
+            `¡Excelente ${playerName}! ${playerAvatar} ¡Muy bien!`,
+            `¡Perfecto ${playerName}! ${playerAvatar} ¡Sigue así!`,
+            `¡Increíble ${playerName}! ${playerAvatar} ¡Eres genial!`,
+            `¡Fantástico ${playerName}! ${playerAvatar} ¡Lo lograste!`,
+            `¡Maravilloso ${playerName}! ${playerAvatar} ¡Qué inteligente!`
+        ];
+        const randomCongrats = congratulations[Math.floor(Math.random() * congratulations.length)];
+        
+        showFeedback(randomCongrats, 'correct');
         soundManager.playCorrect();
         createParticles(20);
         addCelebrationEffect();
     } else {
-        showFeedback(`Incorrecto. La respuesta correcta es ${correctDecenas} decenas y ${correctUnidades} unidades.`, 'incorrect');
+        showFeedback(`No te preocupes ${playerName} ${playerAvatar}. La respuesta correcta es ${correctDecenas} decenas y ${correctUnidades} unidades. ¡Inténtalo de nuevo!`, 'incorrect');
         soundManager.playIncorrect();
         addShakeEffect();
     }
@@ -287,7 +397,17 @@ function levelUp() {
     currentQuestion = 0;
     updateLevel();
     soundManager.playLevelUp();
-    showFeedback(`¡Nivel ${level}! 🚀`, 'correct');
+    
+    // Mensaje de subida de nivel personalizado
+    const levelUpMessages = [
+        `¡Increíble ${playerName}! ${playerAvatar} ¡Subiste al nivel ${level}! 🚀`,
+        `¡Fantástico ${playerName}! ${playerAvatar} ¡Ahora estás en el nivel ${level}! 🌟`,
+        `¡Excelente ${playerName}! ${playerAvatar} ¡Nivel ${level} alcanzado! 🎉`,
+        `¡Maravilloso ${playerName}! ${playerAvatar} ¡Vamos por el nivel ${level}! ⭐`
+    ];
+    const randomLevelUp = levelUpMessages[Math.floor(Math.random() * levelUpMessages.length)];
+    
+    showFeedback(randomLevelUp, 'correct');
     
     setTimeout(() => {
         generateNewQuestion();
@@ -298,6 +418,21 @@ function showResults() {
     finalScore.textContent = score;
     finalLevel.textContent = level;
     showScreen('results');
+    
+    // Mensaje de resultados personalizado
+    const resultsMessages = [
+        `¡Felicitaciones ${playerName}! ${playerAvatar} ¡Completaste el juego!`,
+        `¡Increíble trabajo ${playerName}! ${playerAvatar} ¡Eres un genio!`,
+        `¡Fantástico ${playerName}! ${playerAvatar} ¡Lo hiciste perfecto!`,
+        `¡Excelente ${playerName}! ${playerAvatar} ¡Eres muy inteligente!`
+    ];
+    const randomResults = resultsMessages[Math.floor(Math.random() * resultsMessages.length)];
+    
+    // Actualizar el título de resultados
+    const resultsTitle = document.querySelector('#results-screen h2');
+    if (resultsTitle) {
+        resultsTitle.innerHTML = `${randomResults} 🎉`;
+    }
     
     // Efecto de celebración
     createParticles(100);
