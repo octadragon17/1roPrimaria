@@ -130,7 +130,7 @@ body {
 }
 
 /* Botones */
-.btn-primary, .btn-check, .btn-next {
+.btn-primary, .btn-check, .btn-next, .btn-secondary {
     background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
     color: white;
     border: none;
@@ -146,9 +146,20 @@ body {
     margin: 10px 0;
 }
 
-.btn-primary:hover, .btn-check:hover, .btn-next:hover {
+.btn-secondary {
+    background: linear-gradient(45deg, #95a5a6, #bdc3c7);
+    box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
+    width: 48%;
+    margin: 5px;
+}
+
+.btn-primary:hover, .btn-check:hover, .btn-next:hover, .btn-secondary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 8px 25px rgba(149, 165, 166, 0.4);
 }
 
 .btn-check {
@@ -380,6 +391,147 @@ body {
     75% { transform: translateX(5px); }
 }
 
+/* Pantalla de personalización */
+.customize-container {
+    text-align: center;
+    max-width: 100%;
+}
+
+.customize-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #ff6b6b;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.name-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(45deg, #a8edea, #fed6e3);
+    border-radius: 15px;
+}
+
+.input-label {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.name-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    font-family: 'Fredoka', sans-serif;
+    border: 3px solid #ff6b6b;
+    border-radius: 25px;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.name-input:focus {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+    transform: scale(1.02);
+}
+
+.avatar-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(45deg, #ffecd2, #fcb69f);
+    border-radius: 15px;
+}
+
+.avatar-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.avatar-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    background: white;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-option.selected {
+    border-color: #ff6b6b;
+    background: linear-gradient(45deg, #ffeaa7, #fab1a0);
+    transform: scale(1.05);
+}
+
+.avatar-preview {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+    animation: bounce 2s infinite;
+}
+
+.avatar-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.selected-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(45deg, #d299c2, #fef9d7);
+    border-radius: 15px;
+}
+
+.selected-avatar {
+    font-size: 3rem;
+    animation: bounce 2s infinite;
+}
+
+.selected-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Fredoka One', cursive;
+}
+
+.customize-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.customize-buttons .btn-primary,
+.customize-buttons .btn-secondary {
+    width: 48%;
+    margin: 0;
+}
+
 /* Pantalla de resultados */
 .results-container {
     text-align: center;
@@ -432,96 +584,294 @@ body {
 
 /* Responsive design para móviles */
 @media (max-width: 768px) {
+    body {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
     .game-container {
-        padding: 10px;
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         align-items: flex-start;
+        min-height: auto;
+        height: auto;
     }
     
     .screen {
-        padding: 20px;
-        border-radius: 20px;
-        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .game-title {
-        font-size: 3rem;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
     }
     
     .game-subtitle {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        margin-bottom: 15px;
     }
     
     .question-text {
-        font-size: 3rem;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .question-instruction {
+        font-size: 1rem;
+        margin-bottom: 20px;
     }
     
     .answer-container {
         grid-template-columns: 1fr;
         gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .decenas-section, .unidades-section {
+        padding: 15px;
+    }
+    
+    .decenas-box, .unidades-box {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
     }
     
     .character-container {
-        gap: 15px;
+        gap: 10px;
+        margin: 20px 0;
     }
     
     .character {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     
     .action-buttons {
         flex-direction: column;
         gap: 10px;
+        margin-bottom: 15px;
     }
     
     .blocks-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
+    }
+    
+    .block {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
     }
     
     .btn-primary, .btn-check, .btn-next {
-        padding: 12px 25px;
-        font-size: 1.1rem;
+        padding: 12px 20px;
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+    
+    .btn-control {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    .game-header {
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .score-container, .level-container {
+        font-size: 0.9rem;
+    }
+    
+    #score, #level {
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 480px) {
     .game-container {
-        padding: 5px;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding: 2px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
     
     .screen {
-        padding: 15px;
-        margin-bottom: 15px;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 10px;
     }
     
     .game-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    
+    .game-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
     }
     
     .question-text {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    
+    .question-instruction {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
     }
     
     .decenas-box, .unidades-box {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+    
+    .btn-control {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .block {
+        width: 22px;
+        height: 22px;
+        font-size: 0.6rem;
+    }
+    
+    .btn-primary, .btn-check, .btn-next {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        margin: 3px 0;
+    }
+    
+    .decenas-section, .unidades-section {
+        padding: 10px;
+    }
+    
+    .decenas-section h3, .unidades-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .game-header {
+        padding: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .character {
         font-size: 1.5rem;
+    }
+    
+    .character-container {
+        gap: 8px;
+        margin: 15px 0;
+    }
+    
+    /* Personalización en móviles */
+    .customize-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .name-section, .avatar-section {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .name-input {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+    
+    .avatar-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+    
+    .avatar-option {
+        padding: 10px 5px;
+    }
+    
+    .avatar-preview {
+        font-size: 2rem;
+    }
+    
+    .avatar-name {
+        font-size: 0.8rem;
+    }
+    
+    .selected-info {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .selected-avatar {
+        font-size: 2.5rem;
+    }
+    
+    .selected-name {
+        font-size: 1.2rem;
+    }
+    
+    .customize-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .customize-buttons .btn-primary,
+    .customize-buttons .btn-secondary {
+        width: 100%;
+    }
+}
+
+/* Pantallas muy pequeñas (menos de 360px) */
+@media (max-width: 360px) {
+    .game-container {
+        padding: 1px;
+    }
+    
+    .screen {
+        padding: 8px;
+        margin-bottom: 3px;
+    }
+    
+    .game-title {
+        font-size: 1.8rem;
+    }
+    
+    .question-text {
+        font-size: 1.8rem;
+    }
+    
+    .decenas-box, .unidades-box {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
     }
     
     .btn-control {
         width: 35px;
         height: 35px;
-        font-size: 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .btn-primary, .btn-check, .btn-next {
+        padding: 8px 12px;
+        font-size: 0.8rem;
     }
     
     .block {
-        width: 25px;
-        height: 25px;
-        font-size: 0.7rem;
+        width: 20px;
+        height: 20px;
+        font-size: 0.5rem;
     }
 }
 
