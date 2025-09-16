@@ -335,6 +335,25 @@ function updateVisualBlocks() {
 function checkAnswer() {
     if (isAnswered) return;
     
+    // Validar que haya una respuesta (excepto si el número es 0)
+    if (decenas === 0 && unidades === 0 && currentNumber !== 0) {
+        const messages = [
+            `¡Espera ${playerName}! ${playerAvatar} Debes colocar al menos una decena o una unidad antes de verificar.`,
+            `¡Oye ${playerName}! ${playerAvatar} Primero tienes que elegir cuántas decenas y unidades tiene el número.`,
+            `¡Un momento ${playerName}! ${playerAvatar} Usa los botones + y - para dar tu respuesta.`,
+            `¡Espera ${playerName}! ${playerAvatar} No puedes verificar sin colocar una respuesta primero.`
+        ];
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        
+        showFeedback(randomMessage, 'incorrect');
+        soundManager.playIncorrect();
+        addShakeEffect();
+        
+        // Efecto visual para llamar la atención a los controles
+        highlightControls();
+        return;
+    }
+    
     const correctDecenas = Math.floor(currentNumber / 10);
     const correctUnidades = currentNumber % 10;
     
@@ -489,6 +508,23 @@ function addShakeEffect() {
     setTimeout(() => {
         gameContainer.style.animation = '';
     }, 600);
+}
+
+function highlightControls() {
+    // Resaltar los botones de control
+    const controls = document.querySelectorAll('.btn-control');
+    controls.forEach(btn => {
+        btn.style.animation = 'pulse 1s ease-in-out 3';
+        btn.style.boxShadow = '0 0 20px rgba(255, 107, 107, 0.8)';
+    });
+    
+    // Quitar el efecto después de 3 segundos
+    setTimeout(() => {
+        controls.forEach(btn => {
+            btn.style.animation = '';
+            btn.style.boxShadow = '';
+        });
+    }, 3000);
 }
 
 // Efectos táctiles para móviles
