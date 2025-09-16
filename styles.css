@@ -14,6 +14,9 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    /* Permitir scroll vertical en móviles */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Contenedor principal del juego */
@@ -22,9 +25,12 @@ body {
     width: 100%;
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 20px;
+    /* Permitir scroll en móviles */
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 /* Pantallas del juego */
@@ -428,11 +434,15 @@ body {
 @media (max-width: 768px) {
     .game-container {
         padding: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        align-items: flex-start;
     }
     
     .screen {
         padding: 20px;
         border-radius: 20px;
+        margin-bottom: 20px;
     }
     
     .game-title {
@@ -477,6 +487,17 @@ body {
 }
 
 @media (max-width: 480px) {
+    .game-container {
+        padding: 5px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    
+    .screen {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
     .game-title {
         font-size: 2.5rem;
     }

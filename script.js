@@ -372,10 +372,10 @@ function addTouchEffects() {
 
 // Optimizaciones para móviles
 function optimizeForMobile() {
-    // Prevenir zoom en inputs
+    // Configurar viewport para mejor experiencia móvil
     const viewport = document.querySelector('meta[name="viewport"]');
     if (viewport) {
-        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes');
     }
     
     // Mejorar la experiencia táctil
@@ -412,12 +412,8 @@ window.addEventListener('orientationchange', function() {
     }, 100);
 });
 
-// Prevenir el scroll en móviles durante el juego
-document.addEventListener('touchmove', function(e) {
-    if (e.target.closest('.game-container')) {
-        e.preventDefault();
-    }
-}, { passive: false });
+// Permitir scroll natural en móviles
+// (Removido el bloqueo de scroll para mejor experiencia móvil)
 
 // Mejorar la accesibilidad
 function addAccessibilityFeatures() {
