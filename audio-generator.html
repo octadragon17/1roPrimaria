@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Audio - Padre Nuestro</title>
+</head>
+<body>
+    <h1>Generador de Audio para el Juego del Padre Nuestro</h1>
+    <p>Este archivo genera los archivos de audio necesarios para el juego.</p>
+    <div id="status">Preparando...</div>
+    <div id="progress"></div>
+    
+    <script>
+        const prayerPhrases = [
+            { english: "Our Father", spanish: "Padre Nuestro" },
+            { english: "Who art in heaven", spanish: "Que estás en el cielo" },
+            { english: "Hallowed be thy name", spanish: "Bendito sea tu nombre" },
+            { english: "Thy kingdom come", spanish: "Venga a nosotros tu reino" },
+            { english: "Thy will be done", spanish: "Hágase tu voluntad" },
+            { english: "On Earth as it is in heaven", spanish: "Así sea en la tierra como en el cielo" },
+            { english: "Give us this day", spanish: "Danos hoy" },
+            { english: "Our daily bread", spanish: "Nuestro pan de cada día" },
+            { english: "And forgive us our trespasses", spanish: "Y perdona nuestras ofensas" },
+            { english: "As we forgive those", spanish: "Como nosotros perdonamos a los" },
+            { english: "Who trespass against us", spanish: "Que nos ofenden" },
+            { english: "Lead us not into temptation", spanish: "No nos dejes caer en la tentación" },
+            { english: "But deliver us from evil", spanish: "Y líbranos de todo mal" },
+            { english: "Amen", spanish: "Amén" }
+        ];
+
+        let currentIndex = 0;
+        const statusDiv = document.getElementById('status');
+        const progressDiv = document.getElementById('progress');
+
+        function speakText(text, language = 'en-US') {
+            return new Promise((resolve) => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = language;
+                utterance.rate = 0.7; // Velocidad lenta para niños
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                
+                // Seleccionar voz apropiada
+                const voices = speechSynthesis.getVoices();
+                if (language === 'en-US') {
+                    utterance.voice = voices.find(voice => 
+                        voice.lang === 'en-US' && voice.name.includes('Female')
+                    ) || voices.find(voice => voice.lang === 'en-US');
+                } else {
+                    utterance.voice = voices.find(voice => 
+                        voice.lang === 'es-ES' || voice.lang === 'es-MX'
+                    );
+                }
+                
+                utterance.onend = () => resolve();
+                speechSynthesis.speak(utterance);
+            });
+        }
+
+        async function generateAllAudio() {
+            statusDiv.textContent = 'Generando archivos de audio...';
+            
+            for (let i = 0; i < prayerPhrases.length; i++) {
+                const phrase = prayerPhrases[i];
+                currentIndex = i + 1;
+                
+                progressDiv.textContent = `Progreso: ${currentIndex}/${prayerPhrases.length}`;
+                statusDiv.textContent = `Generando: ${phrase.english}`;
+                
+                // Generar audio en inglés
+                await speakText(phrase.english, 'en-US');
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                statusDiv.textContent = `Generando: ${phrase.spanish}`;
+                
+                // Generar audio en español
+                await speakText(phrase.spanish, 'es-ES');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+            
+            statusDiv.textContent = '¡Todos los archivos de audio han sido generados!';
+            progressDiv.textContent = 'Completo: 14/14';
+        }
+
+        // Esperar a que las voces estén disponibles
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => {
+                setTimeout(generateAllAudio, 1000);
+            };
+        } else {
+            setTimeout(generateAllAudio, 2000);
+        }
+    </script>
+</body>
+</html>

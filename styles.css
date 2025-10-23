@@ -1,0 +1,647 @@
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Header */
+header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: #4a5568;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    color: #718096;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Tablero de puntuación */
+.score-board {
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Área de juego */
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+    min-height: 400px;
+}
+
+.english-phrases, .spanish-phrases {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.phrase-card {
+    background: linear-gradient(45deg, #ff9a9e, #fecfef);
+    border: 3px solid transparent;
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4a5568;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.phrase-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.phrase-card:hover::before {
+    left: 100%;
+}
+
+.phrase-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.phrase-card.selected {
+    border-color: #ff6b6b;
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    color: white;
+    transform: scale(1.05);
+}
+
+.phrase-card.matched {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    color: white;
+    border-color: #4ecdc4;
+    animation: bounce 0.6s ease;
+}
+
+.phrase-card.wrong {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    color: white;
+    border-color: #ff6b6b;
+    animation: shake 0.5s ease;
+}
+
+/* Contenido de la tarjeta */
+.card-content {
+    flex: 1;
+    padding-right: 10px;
+}
+
+/* Botón de audio */
+.audio-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.audio-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.audio-btn:active {
+    transform: scale(0.95);
+}
+
+.phrase-card:hover .audio-btn {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Animaciones */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Controles */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+.start-btn {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    font-size: 1.3rem;
+    padding: 20px 40px;
+}
+
+.hint-btn {
+    background: linear-gradient(45deg, #ffd93d, #ff6b6b);
+}
+
+.reset-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+}
+
+.audio-toggle-btn {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    font-size: 1rem;
+    padding: 12px 20px;
+}
+
+/* Barra de progreso */
+.progress-bar {
+    background: #e2e8f0;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 5px;
+}
+
+/* Modales */
+.celebration, .game-over, .name-modal, .pronunciation-modal, .congratulations-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal de nombre */
+.name-modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    animation: pulse 0.5s ease;
+}
+
+.name-modal-content h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+
+.name-modal-content p {
+    font-size: 1.2rem;
+    color: #718096;
+    margin-bottom: 20px;
+}
+
+.name-modal-content input {
+    width: 100%;
+    padding: 15px;
+    border: 3px solid #e2e8f0;
+    border-radius: 15px;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: border-color 0.3s ease;
+}
+
+.name-modal-content input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.start-matching-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+}
+
+.start-pronunciation-btn {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+}
+
+/* Modal de pronunciación */
+.pronunciation-content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 600px;
+    animation: pulse 0.5s ease;
+}
+
+.pronunciation-content h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+
+.pronunciation-info {
+    margin-bottom: 30px;
+}
+
+.pronunciation-info p {
+    font-size: 1.1rem;
+    color: #718096;
+    margin-bottom: 10px;
+}
+
+.current-phrase {
+    background: linear-gradient(45deg, #ff9a9e, #fecfef);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.phrase-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #4a5568;
+    margin-bottom: 20px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.listen-btn {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    margin-bottom: 20px;
+}
+
+.pronunciation-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.record-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    font-size: 1.2rem;
+    padding: 15px 30px;
+}
+
+.record-btn.recording {
+    background: linear-gradient(45deg, #ff4757, #ff3838);
+    animation: pulse 1s infinite;
+}
+
+.next-phrase-btn {
+    background: linear-gradient(45deg, #ffd93d, #ff6b6b);
+}
+
+.progress-info {
+    margin-bottom: 20px;
+}
+
+.phrase-progress {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #4a5568;
+    margin-bottom: 10px;
+}
+
+.progress-bar-small {
+    background: #e2e8f0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill-small {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 4px;
+}
+
+.feedback {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.feedback.success {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    color: white;
+}
+
+.feedback.try-again {
+    background: linear-gradient(45deg, #ffd93d, #ff6b6b);
+    color: white;
+}
+
+/* Modal de felicitación */
+.congratulations-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    animation: pulse 0.5s ease;
+}
+
+.congratulations-content h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+
+.congratulations-text {
+    margin-bottom: 30px;
+}
+
+.congratulations-text p {
+    font-size: 1.3rem;
+    color: #718096;
+    margin-bottom: 15px;
+}
+
+.congratulations-animation {
+    margin-bottom: 30px;
+}
+
+.fireworks {
+    font-size: 3rem;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+.stars {
+    font-size: 2rem;
+    margin-top: 15px;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+.congratulations-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.play-again-pronunciation-btn {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+}
+
+.back-to-menu-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+}
+
+.celebration-content, .game-over-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    animation: pulse 0.5s ease;
+}
+
+.celebration h2, .game-over h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+
+.next-btn {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    margin-top: 20px;
+}
+
+.play-again-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .game-area {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .score-board {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .phrase-card {
+        padding: 15px;
+        font-size: 1rem;
+    }
+    
+    .audio-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .card-content {
+        padding-right: 8px;
+    }
+    
+    .celebration-content, .game-over-content {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .name-modal-content, .pronunciation-content, .congratulations-content {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .name-modal-content h2, .congratulations-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .pronunciation-content h2 {
+        font-size: 1.3rem;
+    }
+    
+    .phrase-text {
+        font-size: 1.1rem;
+        min-height: 50px;
+    }
+    
+    .pronunciation-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .record-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+/* Efectos especiales */
+.star {
+    position: absolute;
+    color: #ffd93d;
+    font-size: 2rem;
+    animation: twinkle 1s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); }
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ff6b6b;
+    animation: confetti-fall 3s linear infinite;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
