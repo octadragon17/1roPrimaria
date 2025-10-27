@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Aprende el Padre Nuestro en Inglés 🌟</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌟 ¡Aprende el Padre Nuestro! 🌟</h1>
+            <p class="subtitle">¡Conecta las frases en inglés y español!</p>
+        </header>
+
+        <div class="game-container" id="gameContainer" style="display: none;">
+            <div class="score-board">
+                <div class="score">Puntos: <span id="score">0</span></div>
+                <div class="level">Nivel: <span id="level">1</span></div>
+                <div class="lives">❤️ <span id="lives">3</span></div>
+            </div>
+
+            <div class="game-area">
+                <div class="english-phrases" id="englishPhrases">
+                    <!-- Las frases en inglés se generarán aquí -->
+                </div>
+                
+                <div class="spanish-phrases" id="spanishPhrases">
+                    <!-- Las frases en español se generarán aquí -->
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn" class="btn start-btn">🎮 ¡Comenzar Juego!</button>
+                <button id="resetBtn" class="btn reset-btn" style="display: none;">🔄 Reiniciar</button>
+                <button id="hintBtn" class="btn hint-btn" style="display: none;">💡 Pista</button>
+                <button id="audioToggleBtn" class="btn audio-toggle-btn">🔊 Audio ON</button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="celebration" id="celebration">
+            <div class="celebration-content">
+                <h2>🎉 ¡Excelente! 🎉</h2>
+                <p>¡Has completado el nivel!</p>
+                <button id="nextLevelBtn" class="btn next-btn">Siguiente Nivel</button>
+            </div>
+        </div>
+
+        <div class="game-over" id="gameOver">
+            <div class="game-over-content">
+                <h2>😊 ¡Bien hecho! 😊</h2>
+                <p>Puntuación final: <span id="finalScore">0</span></p>
+                <button id="playAgainBtn" class="btn play-again-btn">Jugar de Nuevo</button>
+            </div>
+        </div>
+
+        <!-- Modal para solicitar nombre -->
+        <div class="name-modal" id="nameModal">
+            <div class="name-modal-content">
+                <h2>🌟 ¡Bienvenido! 🌟</h2>
+                <p>¿Cuál es tu nombre?</p>
+                <input type="text" id="childName" placeholder="Escribe tu nombre aquí" maxlength="20">
+                <div class="modal-buttons">
+                    <button id="startMatchingBtn" class="btn start-matching-btn">🎯 Juego de Emparejamiento</button>
+                    <button id="startPronunciationBtn" class="btn start-pronunciation-btn">🗣️ Práctica de Pronunciación</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de práctica de pronunciación -->
+        <div class="pronunciation-modal" id="pronunciationModal">
+            <div class="pronunciation-content">
+                <h2>🗣️ Práctica de Pronunciación</h2>
+                <div class="pronunciation-info">
+                    <p>Hola <span id="childNameDisplay"></span>! 👋</p>
+                    <p>Escucha la frase y repítela después del micrófono</p>
+                </div>
+                <div class="current-phrase">
+                    <div class="phrase-text" id="currentPhraseText"></div>
+                    <button id="listenBtn" class="btn listen-btn">🔊 Escuchar</button>
+                </div>
+                <div class="pronunciation-controls">
+                    <button id="recordBtn" class="btn record-btn">🎤 Grabar</button>
+                    <button id="nextPhraseBtn" class="btn next-phrase-btn" style="display: none;">➡️ Siguiente Frase</button>
+                </div>
+                <div class="progress-info">
+                    <div class="phrase-progress">Frase <span id="currentPhraseNumber">1</span> de <span id="totalPhrases">14</span></div>
+                    <div class="progress-bar-small">
+                        <div class="progress-fill-small" id="phraseProgressFill"></div>
+                    </div>
+                </div>
+                <div class="feedback" id="pronunciationFeedback"></div>
+            </div>
+        </div>
+
+        <!-- Modal de felicitación final -->
+        <div class="congratulations-modal" id="congratulationsModal">
+            <div class="congratulations-content">
+                <h2>🎉 ¡Felicitaciones! 🎉</h2>
+                <div class="congratulations-text">
+                    <p><span id="congratulationsName"></span>, ¡has completado el Padre Nuestro en inglés!</p>
+                    <p>¡Tu pronunciación fue excelente! 🌟</p>
+                </div>
+                <div class="congratulations-animation">
+                    <div class="fireworks">🎆</div>
+                    <div class="stars">⭐✨⭐✨⭐</div>
+                </div>
+                <div class="congratulations-buttons">
+                    <button id="playAgainPronunciationBtn" class="btn play-again-pronunciation-btn">🔄 Practicar de Nuevo</button>
+                    <button id="backToMenuBtn" class="btn back-to-menu-btn">🏠 Menú Principal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
