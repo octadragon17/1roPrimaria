@@ -28,6 +28,7 @@ let gameState = {
     isGameActive: false,
     currentPhrases: [],
     audioEnabled: true,
+    audioRate: 0.5, // Velocidad del audio (0.3 a 1.0)
     childName: '',
     gameMode: 'matching', // 'matching' o 'pronunciation'
     pronunciationState: {
@@ -74,7 +75,11 @@ const elements = {
     congratulationsModal: document.getElementById('congratulationsModal'),
     congratulationsName: document.getElementById('congratulationsName'),
     playAgainPronunciationBtn: document.getElementById('playAgainPronunciationBtn'),
-    backToMenuBtn: document.getElementById('backToMenuBtn')
+    backToMenuBtn: document.getElementById('backToMenuBtn'),
+    // Control de velocidad
+    speedControl: document.getElementById('speedControl'),
+    audioSpeed: document.getElementById('audioSpeed'),
+    speedDisplay: document.getElementById('speedDisplay')
 };
 
 // Inicialización del juego
@@ -111,6 +116,12 @@ function setupEventListeners() {
         if (e.key === 'Enter') {
             startMatchingGame();
         }
+    });
+    
+    // Control de velocidad
+    elements.audioSpeed.addEventListener('input', function() {
+        gameState.audioRate = parseFloat(elements.audioSpeed.value);
+        elements.speedDisplay.textContent = gameState.audioRate + 'x';
     });
 }
 
@@ -503,8 +514,8 @@ function playPhraseAudio(text, language = 'en-US') {
     
     const utterance = new SpeechSynthesisUtterance(textWithPauses);
     utterance.lang = language;
-    utterance.rate = 0.5; // Velocidad más lenta para niños (era 0.7)
-    utterance.pitch = 0.9; // Tono más suave (era 1.0)
+    utterance.rate = gameState.audioRate; // Usar velocidad configurada por el usuario
+    utterance.pitch = 0.9; // Tono más suave
     utterance.volume = 1.0;
     
     // Seleccionar voz femenina específica
@@ -700,6 +711,7 @@ function startMatchingGame() {
     
     elements.nameModal.style.display = 'none';
     elements.gameContainer.style.display = 'block';
+    elements.speedControl.style.display = 'flex'; // Mostrar control de velocidad
 }
 
 // Iniciar juego de pronunciación
