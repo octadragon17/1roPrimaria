@@ -79,7 +79,13 @@ const elements = {
     // Control de velocidad
     speedControl: document.getElementById('speedControl'),
     audioSpeed: document.getElementById('audioSpeed'),
-    speedDisplay: document.getElementById('speedDisplay')
+    speedDisplay: document.getElementById('speedDisplay'),
+    // Mensaje de bienvenida
+    welcomeMessage: document.getElementById('welcomeMessage'),
+    welcomeName: document.getElementById('welcomeName'),
+    startPlayingBtn: document.getElementById('startPlayingBtn'),
+    celebrationName: document.getElementById('celebrationName'),
+    finalName: document.getElementById('finalName')
 };
 
 // Inicialización del juego
@@ -122,6 +128,12 @@ function setupEventListeners() {
     elements.audioSpeed.addEventListener('input', function() {
         gameState.audioRate = parseFloat(elements.audioSpeed.value);
         elements.speedDisplay.textContent = gameState.audioRate + 'x';
+    });
+    
+    // Botón de empezar juego
+    elements.startPlayingBtn.addEventListener('click', function() {
+        elements.welcomeMessage.style.display = 'none';
+        startGame();
     });
 }
 
@@ -382,14 +394,28 @@ function createCelebrationEffect(card) {
 
 function showCelebration() {
     elements.celebration.style.display = 'flex';
+    elements.celebrationName.textContent = gameState.childName;
     createConfetti();
+    
+    // Reproducir audio de felicitación personalizada
+    setTimeout(() => {
+        const celebrationText = `Excellent ${gameState.childName}! You have completed the level!`;
+        playPhraseAudio(celebrationText, 'en-US');
+    }, 500);
 }
 
 function showGameOver() {
     gameState.isGameActive = false;
     elements.finalScore.textContent = gameState.score;
     elements.gameOver.style.display = 'flex';
+    elements.finalName.textContent = gameState.childName;
     createConfetti();
+    
+    // Reproducir audio de felicitación final personalizada
+    setTimeout(() => {
+        const finalText = `Great work ${gameState.childName}! Your final score is ${gameState.score} points. Amazing job!`;
+        playPhraseAudio(finalText, 'en-US');
+    }, 500);
 }
 
 function nextLevel() {
@@ -710,8 +736,16 @@ function startMatchingGame() {
     gameState.gameMode = 'matching';
     
     elements.nameModal.style.display = 'none';
-    elements.gameContainer.style.display = 'block';
-    elements.speedControl.style.display = 'flex'; // Mostrar control de velocidad
+    
+    // Mostrar mensaje de bienvenida personalizado
+    elements.welcomeName.textContent = name;
+    elements.welcomeMessage.style.display = 'flex';
+    
+    // Reproducir audio de bienvenida
+    setTimeout(() => {
+        const welcomeText = `Hello ${name}, I am very happy that you want to learn the Our Father in English. Let's have fun and learn together!`;
+        playPhraseAudio(welcomeText, 'en-US');
+    }, 500);
 }
 
 // Iniciar juego de pronunciación
@@ -940,6 +974,12 @@ function showCongratulations() {
     
     // Reproducir sonido de celebración
     playSound(1000, 0.5);
+    
+    // Reproducir audio de felicitación personalizada
+    setTimeout(() => {
+        const congratulationsText = `Congratulations ${gameState.childName}! You have completed the Our Father in English! Your pronunciation was excellent!`;
+        playPhraseAudio(congratulationsText, 'en-US');
+    }, 1000);
 }
 
 // Reiniciar pronunciación

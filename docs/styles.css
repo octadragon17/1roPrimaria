@@ -326,7 +326,7 @@ header h1 {
 }
 
 /* Modales */
-.celebration, .game-over, .name-modal, .pronunciation-modal, .congratulations-modal {
+.celebration, .game-over, .name-modal, .pronunciation-modal, .congratulations-modal, .welcome-message {
     position: fixed;
     top: 0;
     left: 0;
@@ -337,6 +337,36 @@ header h1 {
     align-items: center;
     justify-content: center;
     z-index: 1000;
+}
+
+/* Mensaje de bienvenida */
+.welcome-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    animation: pulse 0.5s ease;
+}
+
+.welcome-content h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+
+.welcome-content p {
+    font-size: 1.2rem;
+    color: #718096;
+    margin-bottom: 15px;
+}
+
+.start-playing-btn {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    margin-top: 20px;
+    font-size: 1.3rem;
+    padding: 20px 40px;
 }
 
 /* Modal de nombre */
@@ -674,13 +704,17 @@ header h1 {
         margin: 20px;
     }
     
-    .name-modal-content, .pronunciation-content, .congratulations-content {
+    .name-modal-content, .pronunciation-content, .congratulations-content, .welcome-content {
         padding: 20px;
         margin: 20px;
     }
     
-    .name-modal-content h2, .congratulations-content h2 {
+    .name-modal-content h2, .congratulations-content h2, .welcome-content h2 {
         font-size: 1.5rem;
+    }
+    
+    .welcome-content p {
+        font-size: 1rem;
     }
     
     .pronunciation-content h2 {
