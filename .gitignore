@@ -13,17 +13,32 @@ Thumbs.db
 *.temp
 
 # Logs
+logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
-# Dependencias (si se agregan en el futuro)
+# Dependencias
 node_modules/
+jspm_packages/
 package-lock.json
+yarn.lock
 
 # Archivos de build
 dist/
 build/
+out/
 
 # Archivos de configuración local
 .env
-.env.local
+.env.*
+!.env.example
+
+# Cache directories
+.cache/
+.parcel-cache/
+.nuxt/
+.next/
+.svelte-kit/
