@@ -1,0 +1,370 @@
+/* Spelling Words - Estilos para niños */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #f59e0b;
+    --accent: #ec4899;
+    --success: #10b981;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --card-front: linear-gradient(145deg, #fef3c7 0%, #fde68a 100%);
+    --card-back: linear-gradient(145deg, #e0e7ff 0%, #c7d2fe 100%);
+    --shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    --shadow-hover: 0 15px 40px rgba(99, 102, 241, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    opacity: 0.95;
+}
+
+/* Grid de tarjetas */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Tarjeta con efecto flip */
+.card {
+    perspective: 1000px;
+    cursor: pointer;
+    aspect-ratio: 1;
+    min-height: 120px;
+    overflow: hidden;
+    -webkit-perspective: 1000px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transform-origin: center center;
+}
+
+.card .card-inner {
+    transform: rotateY(0deg);
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Hover solo en dispositivos con ratón (evita hover "pegado" en móvil) */
+@media (hover: hover) {
+    .card:hover .card-inner {
+        transform: rotateY(0deg) scale(1.02);
+    }
+
+    .card.flipped:hover .card-inner {
+        transform: rotateY(180deg) scale(1.02);
+    }
+}
+
+.card-face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    box-shadow: var(--shadow);
+}
+
+.card-face:active {
+    opacity: 0.95;
+}
+
+/* Frente: imagen/dibujo */
+.card-front-face {
+    background: var(--card-front);
+    border: 4px solid #fbbf24;
+}
+
+.card-front-face .card-image {
+    font-size: 4rem;
+    margin-bottom: 8px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+.card-front-face .card-hint {
+    font-size: 0.75rem;
+    color: #92400e;
+    font-weight: 600;
+}
+
+/* Reverso: palabra - rotateY para que quede visible al voltear */
+.card-back-face {
+    background: var(--card-back);
+    border: 4px solid var(--primary);
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+}
+
+.card-back-face .card-word {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    color: var(--primary-dark);
+    text-align: center;
+    line-height: 1.3;
+    padding: 5px;
+}
+
+.card-back-face .card-word:hover {
+    color: var(--accent);
+}
+
+.card-back-face .card-hint {
+    font-size: 0.65rem;
+    color: #4f46e5;
+    margin-top: 8px;
+}
+
+/* Modal para spelling */
+.word-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.word-modal.active {
+    display: flex;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.word-modal-content {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    animation: modalPop 0.3s ease-out;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.close-modal:hover {
+    color: var(--accent);
+}
+
+.spelling-word {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.spelling-letter {
+    display: inline-block;
+    padding: 8px 12px;
+    min-width: 36px;
+    min-height: 36px;
+    background: var(--card-back);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.spelling-letter:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.spelling-letter.highlight {
+    animation: letterBounce 0.5s ease;
+    background: var(--secondary);
+    color: white;
+}
+
+@keyframes letterBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.pronounce-word-btn {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 16px;
+    padding: 14px 20px;
+    min-height: 48px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pronounce-word-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+.pronounce-word-btn:active {
+    transform: scale(0.98);
+}
+
+.tap-hint {
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-align: center;
+}
+
+/* Responsive y móvil */
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+    
+    .card {
+        min-height: 100px;
+    }
+    
+    .card-inner {
+        min-height: 100px;
+    }
+    
+    .card-face {
+        padding: 10px;
+    }
+    
+    .card-front-face .card-image {
+        font-size: 2.8rem;
+    }
+    
+    .card-back-face .card-word {
+        font-size: 0.85rem;
+    }
+    
+    .word-modal-content {
+        padding: 24px;
+        max-width: 95%;
+    }
+    
+    .spelling-word {
+        font-size: 1.4rem;
+    }
+    
+    .spelling-letter {
+        padding: 6px 10px;
+    }
+    
+    .pronounce-word-btn {
+        font-size: 0.95rem;
+        padding: 14px;
+    }
+}
+
+/* Soporte para pantallas muy pequeñas */
+@media (max-width: 360px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}

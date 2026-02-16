@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spelling Words - Juego para Niños</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ Spelling Words ✨</h1>
+            <p class="subtitle">Toca la imagen para ver la palabra • Toca la palabra para escuchar</p>
+        </header>
 
+        <div class="cards-grid" id="cardsGrid">
+            <!-- Las tarjetas se generan dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Modal para mostrar la palabra con efecto letra por letra -->
+    <div class="word-modal" id="wordModal">
+        <div class="word-modal-content">
+            <button class="close-modal" id="closeModal" aria-label="Cerrar">×</button>
+            <div class="spelling-word" id="spellingWord"></div>
+            <button class="pronounce-word-btn" id="pronounceWordBtn" type="button">🔊 Pronunciar palabra</button>
+            <p class="tap-hint">Toca cada letra para escuchar su pronunciación</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
