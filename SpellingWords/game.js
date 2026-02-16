@@ -197,7 +197,6 @@ function closeSpellingModal() {
 }
 
 // Event listeners
-document.getElementById('closeModal').addEventListener('click', closeSpellingModal);
 document.getElementById('pronounceWordBtn').addEventListener('click', pronounceWord);
 
 document.getElementById('wordModal').addEventListener('click', (e) => {
