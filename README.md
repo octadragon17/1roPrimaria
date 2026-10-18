@@ -1,53 +1,49 @@
-# 🎮 Juegos Educativos para 1ro de Primaria
+# 🎮 Juegos educativos para 1ro de primaria
 
-Repositorio para juegos y páginas de apoyo para el grupo de primero A del Colegio Pedro Moreno.
+Juegos web para apoyar al grupo 1ro A del Colegio Pedro Moreno. Funcionan en el navegador de cualquier computadora, tablet o celular. No hace falta instalar nada ni crear cuentas.
 
-## 📚 Juegos Disponibles
+**▶️ Jugar en línea:** https://octadragon17.github.io/1roPrimaria/
 
-### 🌟 [Padre Nuestro en Inglés](./padre-nuestro/)
-**Juego interactivo para aprender el Padre Nuestro en inglés**
+## 📚 Juegos
 
-- 🎯 **Modo Emparejamiento**: Conecta frases en inglés con español
-- 🗣️ **Modo Pronunciación**: Practica la pronunciación frase por frase con reconocimiento de voz
-- 🔊 **Audio integrado**: Pronunciación correcta con voces femeninas suaves
-- 📱 **Responsive**: Funciona en computadoras, tablets y móviles
-- 👶 **Diseñado para niños**: Interfaz colorida y amigable
+| Juego | Qué practica | Enlace |
+|---|---|---|
+| 🔢 **Unidades y Decenas** | Descomponer números en decenas y unidades, con niveles, puntos y un avatar a elegir | [Jugar](https://octadragon17.github.io/1roPrimaria/) |
+| 🙏 **Padre Nuestro en inglés** | Emparejar frases inglés–español y practicar la pronunciación con reconocimiento de voz | [Jugar](https://octadragon17.github.io/1roPrimaria/padre-nuestro/) |
+| 🔤 **Spelling Words** | Vocabulario en inglés: tocar la imagen para ver la palabra y escuchar cada letra | [Jugar](https://octadragon17.github.io/1roPrimaria/SpellingWords/) |
 
-**Características especiales:**
-- Reconocimiento de voz para evaluar pronunciación
-- Sistema de progreso visual
-- Felicitaciones personalizadas
-- Control de audio global
-- Efectos visuales y sonoros
+## ✨ Características
 
----
+- **Audio y voz** con la Web Speech API: pronunciación de palabras y letras, y evaluación de lo que dice el niño
+- **Personalización**: el niño escribe su nombre y el juego lo felicita por su nombre
+- **Privacidad**: el nombre y el progreso se quedan en el navegador del dispositivo. El código nunca los envía a un servidor
+- **Responsive**: diseñado para dedos pequeños y pantallas táctiles
 
-## 🚀 Cómo usar los juegos
+## 🗂️ Estructura
 
-1. **Navega a la carpeta del juego** que te interese
-2. **Abre el archivo `index.html`** en tu navegador
-3. **¡Disfruta aprendiendo!** 🎉
+```
+1roPrimaria/
+├── index.html, script.js, styles.css   # Unidades y Decenas (página de inicio)
+├── padre-nuestro/                      # Padre Nuestro en inglés
+└── SpellingWords/                      # Spelling Words
+```
 
-## 📱 Compatibilidad
+El sitio se publica con **GitHub Pages** desde la rama `main`.
 
-- ✅ Chrome 60+
-- ✅ Firefox 55+
-- ✅ Safari 12+
-- ✅ Edge 79+
-- ✅ Dispositivos móviles
+## 💻 Ejecutar localmente
 
-## 🛠️ Tecnologías utilizadas
+```bash
+git clone https://github.com/octadragon17/1roPrimaria.git
+cd 1roPrimaria
+npx serve .        # o abre index.html directamente en el navegador
+```
 
-- **HTML5** - Estructura
-- **CSS3** - Estilos y animaciones
-- **JavaScript** - Lógica del juego
-- **Web Speech API** - Audio y reconocimiento de voz
-- **GitHub Pages** - Hosting gratuito
+> El reconocimiento de voz necesita Chrome o Edge y permiso de micrófono.
 
-## 📞 Contacto
+## 🛠️ Tecnologías
 
-Para sugerencias o mejoras, contacta al profesor del grupo.
+HTML5 · CSS3 · JavaScript (sin frameworks) · Web Speech API · GitHub Pages
 
----
+## 📄 Licencia
 
-*¡Que disfruten aprendiendo!* 🌟
+[MIT](LICENSE) © José Octavio Moreno Aldana
